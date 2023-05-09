@@ -1,0 +1,32 @@
+{% load base_tags wagtailcore_tags %}
+
+<section id="left-section" class="bg-gray-800 w-32 py-8 px-2 rounded-tr-lg">
+            
+    <a id="statuses" href="/">
+        <div id="tasks-status" class="font-bold flex items-center my-2 border border-white py-2 rounded-lg bg-white text-gray-800 h-max"> 
+            <span class="flex w-3 h-3 bg-gray-900 rounded-full dark:bg-gray-700"></span>    
+            <h1>All tasks</h1>            
+        </div>
+    </a>
+
+    <a id="statuses" href="#">
+        <div id="today-status" class="font-bold flex flex-wrap items-center my-2 border border-white py-2 rounded-lg bg-white text-gray-800 h-max"> 
+            <span class="flex w-3 h-3 bg-green-600 rounded-full"></span>
+            <h1>Today</h1>            
+        </div>
+    </a>
+
+    <a id="statuses" href="#">
+        <div id="three-days-status" class="font-bold flex items-center my-2 border border-white py-2 rounded-lg bg-white text-gray-800 h-max"> 
+            <span class="flex w-3 h-3 bg-amber-600 rounded-full"></span>  
+            <h1>Last 3 days</h1>            
+        </div>
+    </a>
+
+    <a id="statuses" href="#">
+        <div id="overdue-status" class="font-bold flex items-center my-2 border border-white py-2 rounded-lg bg-white text-gray-800 h-max"> 
+            <span class="flex w-3 h-3 bg-rose-700 rounded-full"></span>   
+            <h1>Overdue</h1>            
+        </div>  
+    </a>
+</section>

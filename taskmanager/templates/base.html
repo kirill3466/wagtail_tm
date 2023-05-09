@@ -1,0 +1,66 @@
+{% load static wagtailcore_tags wagtailuserbar base_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>
+            {% block title %}
+            {% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}
+            {% endblock %}
+            {% block title_suffix %}
+            {% wagtail_site as current_site %}
+            {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
+            {% endblock %}
+        </title>
+        {% if page.search_description %}
+        <meta name="description" content="{{ page.search_description }}" />
+        {% endif %}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        {# Force all links in the live preview panel to be opened in a new tab #}
+        {% if request.in_preview_panel %}
+        <base target="_blank">
+        {% endif %}
+
+        {# Global stylesheets #}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/taskmanager.css' %}">
+
+        {% block extra_css %}
+        {% endblock %}
+    </head>
+
+    <body class="{% block body_class %}{% endblock %} p-0">
+        {% wagtailuserbar %}
+
+        {% get_site_root as site_root %}
+
+        {% top_menu parent=site_root %}
+
+        <main class="h-screen w-screen">
+            <div id="sections-wrapper" class="flex justify-between" style="height: 100vh" >
+
+                {% left_menu parent=site_root %}
+    
+                <section id="right-section" class="grow">
+                    <div id="list-wrapper"  class="flex justify-center bg-gray-700" style="height: 100vh" >
+                        <div id="task-list" class=" mx-auto max-w-screen-xl py-4 flex-column flex items-center">
+                            {% block content %}{% endblock %}
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        {# Global javascript #}
+        <script type="text/javascript" src="{% static 'js/taskmanager.js' %}"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+        {% block extra_js %}
+        {# Override this in templates to add extra javascript #}
+        {% endblock %}
+    </body>
+</html>

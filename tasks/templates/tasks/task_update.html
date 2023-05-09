@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load wagtailcore_tags crispy_forms_tags %}
+{% block content %}
+
+<style>
+
+#id_user_date{
+    color: black
+}
+#create-button:hover{
+            opacity: 0.8;
+        }
+</style>
+
+<div class="flex justify-center w-full bg-gray-700 pt-10">
+        
+        <form method="POST" action="#">
+            <div class="flex rounded-lg">
+                {% csrf_token %}
+                <div class="px-2">
+                    {{ form|crispy }}
+                </div>
+            </div>
+            
+            <p class="justify-center flex">
+                <button id="create-button" class="w-60 text-gray-900 border border-gray-300 font-medium rounded-lg px-5 py-2.5 mr-2 my-2 bg-white">
+                    Submit
+                </button>
+            </p>
+        </form>
+    
+</div>
+
+{% endblock content %}

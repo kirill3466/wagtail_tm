@@ -1,0 +1,30 @@
+{% load base_tags wagtailcore_tags %}
+
+<div id="top-menu" class="fixed top-0 w-full border-b-2 border-gray-800 bg-gray-800 text-white">
+    <div id="wrapper" class="flex items-center justify-between">
+        <div id="left-side" class="h-8 flex items-center space-l-6 ">
+                <a id="home" href="/" class="flex px-2 hover:bg-gray-800 hover:text-white">
+                    <p class="font-semibold mr-2 text-xl">
+                        Task manager    
+                    </p>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                    </svg>
+                </a>
+                <a id="add-task" href="{% url 'task-create' request.user.id %}" class="hover:bg-gray-800 hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 hover:rotate-90 transition-transform">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                </a>
+        </div>
+        <div id="right-side" class="flex items-center space-x-5 mx-2 ">
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'logout' %}">Logout</a>
+                {{ user.id }}
+            {% else %}
+                <a href="{% url 'login' %}">Sign in</a>
+                <a href="{% url 'register' %}">Sign up</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
