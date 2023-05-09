@@ -24,7 +24,6 @@ urlpatterns = [
     path('task-steps/<str:pk>/', TaskStepsUpdateView.as_view(template_name='tasks/task_steps_update.html'), name='steps-update')
 ]
 
-
 if settings.DEBUG:
     from django.conf.urls.static import static
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
