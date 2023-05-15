@@ -39,20 +39,20 @@ def create_page(request, pk):
 
             title = request.POST.get('title', ''),
             description = request.POST.get('description', ''),
-            complete = True if request.POST.get('complete', '') == "on" else False,
+            status = request.POST.get('status', ''),
             date = request.POST.get('date', ''),
             parent_page = TaskIndexPage.objects.all()[0]
-            create_page_data(parent_page, title, description, complete, date)
+            create_page_data(parent_page, title, description, status, date)
         return redirect(settings.LOGIN_REDIRECT_URL)
     
     context = {'form': form}
     return render(request, 'tasks/task_create.html', context)
 
-def create_page_data(parent_page, title, description, complete, date):
+def create_page_data(parent_page, title, description, status, date):
     new_page = TaskPage(
                         title = title[0],
                         description = description[0],
-                        complete = complete[0],
+                        status = status[0],
                         date = date[0],
                         )
     
@@ -85,7 +85,7 @@ class TaskStepsUpdateView(UpdateView):
     model = TaskSteps
     form_class = StepsForm
     success_url = settings.LOGIN_REDIRECT_URL
-    template_name = 'tasks/task_steps.html'
+    template_name = 'tasks/task_steps_update.html'
 
     def get_context_data(self, *args, **kwargs):
         context = super(TaskStepsUpdateView, self).get_context_data(**kwargs)

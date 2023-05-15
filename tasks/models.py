@@ -18,15 +18,22 @@ from wagtail.contrib.forms.models import AbstractForm, AbstractFormField
 from django.utils.timezone import now
 # Create your models here.
 
+status_choices = [
+        ('O', 'Ongoing'),
+        ('P', 'Planned'),   
+        ('D', 'Done'),
+    ]
 
 class TaskPage(Page):
     parent_page_types = ['tasks.TaskIndexPage']
     template = 'tasks/task_page.html'
 
+    
+
     created_at = models.DateTimeField(default=now, blank=True)
     description = models.TextField(max_length=255, blank=True, null=True)
-    complete = models.BooleanField(default=False, blank=True, null=True)
     date = models.DateTimeField(default=now, blank=True, null=True)
+    status = models.CharField(max_length=1, choices=status_choices, default='Planned')
     # body = StreamField([
     # ('title', blocks.CharBlock(required=True, form_classname="title")),
     # ('taskblock', TaskBlock()),
@@ -38,16 +45,16 @@ class TaskPage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('description'),
-        FieldPanel('complete'),
         FieldPanel('date'),
-        FieldPanel('created_at'),   
+        FieldPanel('created_at'),
+        FieldPanel('status'),
     ]
     
     def get_context(self, request, *args, **kwargs):
         """Adding custom stuff to our context."""
         context = super().get_context(request, *args, **kwargs)
-        context["steps"] = TaskSteps.objects.get().body
-
+        # if TaskSteps.objects.all:
+        #     context["steps"] = TaskSteps.objects.get().body
         return context
     
     # def save(self, *args, **kwargs):
@@ -89,7 +96,7 @@ class TaskIndexPage(Page):
 class TaskSteps(Page):
     parent_page_types = ['tasks.TaskPage']
     max_count_per_parent = 1
-    
+
     task = models.ForeignKey(
         'tasks.TaskPage',
         blank=True,
@@ -105,10 +112,5 @@ class TaskSteps(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('task'),
-        FieldPanel('body')
+        StreamFieldPanel('body')
     ]
-
-    
-    
-
-

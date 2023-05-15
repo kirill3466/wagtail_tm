@@ -7,12 +7,12 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.db.models.fields import AutoField
 from modelcluster.fields import ParentalKey
 from wagtail.contrib.forms.models import AbstractForm, AbstractFormField
-from .models import TaskPage, TaskSteps
+from .models import TaskPage, TaskSteps, status_choices
 
 class CustomTaskUpdateForm(forms.ModelForm):
     class Meta:
         model = TaskPage
-        fields = ['title', 'date', 'description', 'complete']
+        fields = ['title', 'date', 'description', 'status']
         widgets = {
             'date': forms.widgets.DateInput(attrs={'type': 'date'})
         }
@@ -21,7 +21,7 @@ class CustomTaskUpdateForm(forms.ModelForm):
 class StepsForm(forms.ModelForm):
     class Meta:
         model = TaskSteps
-        fields = ['body']
+        fields = ['body', 'step']
 
 
 
@@ -29,11 +29,10 @@ class TaskCreateForm(forms.ModelForm):
     required_css_class = 'mt-2'
     title = forms.CharField(widget=forms.TextInput(attrs={"class": "block w-full p-2 text-gray-900 border border-gray-300 rounded-l"}))
     description = forms.CharField(widget=forms.Textarea(attrs={"class": "py-10 px-10 block w-full p-4 text-gray-900 border border-gray-300 rounded-l"}))
-    complete = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={"class": "my-3 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"}))
 
     class Meta:
         model = TaskPage
-        fields = ['title', 'date', 'description', 'complete']
+        fields = ['title', 'date', 'description', 'status']
         widgets = {
             'date': forms.widgets.DateInput(attrs={'type': 'date'}),
         }

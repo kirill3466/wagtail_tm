@@ -50,7 +50,7 @@ Delete the line below if you're just getting started and want to remove the welc
 
         <div id="task-steps" class="border-b-2">
             <b>Steps:</b>
-            <ul class="pl-4 space-y-1 text-gray-900">{{ steps}}</ul>
+            <ul class="pl-4 space-y-1 text-gray-900">{{ page.get_children.first }}</ul>
             
         </div>
 
@@ -60,12 +60,13 @@ Delete the line below if you're just getting started and want to remove the welc
                     <button type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Change task</button>
                 </a>
             </div>
-            
+            {% if self.get_children.first %}
             <div id="button-container" class="flex justify-center pt-4 pl-6">
-                <a href="{% pageurl self.get_children.first   %}">
+                <a href="{% pageurl self.get_children.first  %}">
                     <button type="button" class="text-white bg-sky-900 hover:bg-sky-800 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 ">Go to steps</button>
                 </a>
             </div>
+            {% endif %}
         </div>
         
 
